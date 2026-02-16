@@ -56,7 +56,7 @@ class PyTouchline(object):
 			Parameter(name="ownerKurzID", desc="Controller ID",
 					  type=Parameter.G))
 
-	async def get_async_client(self) -> AsyncClient:
+	def get_async_client(self) -> AsyncClient:
 		return httpx.AsyncClient(verify=False, timeout=self._timeout)
 
 	async def get_number_of_devices_async(self) -> int:
@@ -136,7 +136,7 @@ class PyTouchline(object):
 		return request
 
 	async def write_parameter_async(self, parameter, value):
-		async with await self.get_async_client() as client:
+		async with self.get_async_client() as client:
 			response = await client.request(
 				url=self._url +
 					self._write_path + "?" +
@@ -159,7 +159,7 @@ class PyTouchline(object):
 		logger.debug("Requesting URL: %s%s (timeout: %.1fs)", self._url, self._read_path, self._timeout)
 
 		try:
-			async with await self.get_async_client() as client:
+			async with self.get_async_client() as client:
 				response = await client.request(
 					url=self._url + self._read_path,
 					method="POST",

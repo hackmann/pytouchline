@@ -387,7 +387,7 @@ async def test_get_async_client():
     timeout = 15.0
     touchline = PyTouchline(id=0, url="http://192.168.1.254", timeout=timeout)
 
-    client = await touchline.get_async_client()
+    client = touchline.get_async_client()
 
     assert isinstance(client, httpx.AsyncClient)
     assert client.timeout.connect == timeout
